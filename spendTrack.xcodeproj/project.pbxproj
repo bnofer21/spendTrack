@@ -14,7 +14,7 @@
 		5B2D0EFD2957493B00376F77 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B2D0EFC2957493B00376F77 /* Assets.xcassets */; };
 		5B2D0F002957493B00376F77 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B2D0EFE2957493B00376F77 /* LaunchScreen.storyboard */; };
 		5B2D0F1029574AB400376F77 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2D0F0F29574AB400376F77 /* MainView.swift */; };
-		5B2D0F1329574AF300376F77 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2D0F1229574AF300376F77 /* MainViewModel.swift */; };
+		5B2D0F1329574AF300376F77 /* BtcViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2D0F1229574AF300376F77 /* BtcViewModel.swift */; };
 		5B2D0F1629574C0D00376F77 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2D0F1529574C0D00376F77 /* UIView+Extension.swift */; };
 		5B2D0F1829574EB900376F77 /* TransactionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2D0F1729574EB900376F77 /* TransactionCell.swift */; };
 		5B2D0F1A29574F6E00376F77 /* TransactionsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2D0F1929574F6E00376F77 /* TransactionsTableView.swift */; };
@@ -23,6 +23,12 @@
 		5B2D0F2329577B7D00376F77 /* CategoryCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2D0F2229577B7D00376F77 /* CategoryCollectionView.swift */; };
 		5B2D0F2529577BCE00376F77 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2D0F2429577BCE00376F77 /* CategoryCell.swift */; };
 		5B2D0F272957845900376F77 /* Resources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2D0F262957845900376F77 /* Resources.swift */; };
+		5B2D0F2D295797AB00376F77 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2D0F2C295797AB00376F77 /* Network.swift */; };
+		5B2D0F302957984D00376F77 /* Bitcoin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2D0F2F2957984D00376F77 /* Bitcoin.swift */; };
+		5B2D0F322957A47100376F77 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2D0F312957A47000376F77 /* DataManager.swift */; };
+		5B2D0F402957B43B00376F77 /* AddSpendButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2D0F3F2957B43B00376F77 /* AddSpendButton.swift */; };
+		5B2D0F422957B83100376F77 /* TransactionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2D0F412957B83100376F77 /* TransactionViewModel.swift */; };
+		5B2D0F442957BA5100376F77 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2D0F432957BA5100376F77 /* String+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,7 +41,7 @@
 		5B2D0EFF2957493B00376F77 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5B2D0F012957493B00376F77 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5B2D0F0F29574AB400376F77 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
-		5B2D0F1229574AF300376F77 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+		5B2D0F1229574AF300376F77 /* BtcViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BtcViewModel.swift; sourceTree = "<group>"; };
 		5B2D0F1529574C0D00376F77 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		5B2D0F1729574EB900376F77 /* TransactionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCell.swift; sourceTree = "<group>"; };
 		5B2D0F1929574F6E00376F77 /* TransactionsTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsTableView.swift; sourceTree = "<group>"; };
@@ -44,6 +50,12 @@
 		5B2D0F2229577B7D00376F77 /* CategoryCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionView.swift; sourceTree = "<group>"; };
 		5B2D0F2429577BCE00376F77 /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
 		5B2D0F262957845900376F77 /* Resources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resources.swift; sourceTree = "<group>"; };
+		5B2D0F2C295797AB00376F77 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
+		5B2D0F2F2957984D00376F77 /* Bitcoin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bitcoin.swift; sourceTree = "<group>"; };
+		5B2D0F312957A47000376F77 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		5B2D0F3F2957B43B00376F77 /* AddSpendButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSpendButton.swift; sourceTree = "<group>"; };
+		5B2D0F412957B83100376F77 /* TransactionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionViewModel.swift; sourceTree = "<group>"; };
+		5B2D0F432957BA5100376F77 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,11 +88,13 @@
 		5B2D0EEF2957493800376F77 /* spendTrack */ = {
 			isa = PBXGroup;
 			children = (
-				5B2D0F1B29575B5A00376F77 /* NewSpend Module */,
 				5B2D0F0729574A2000376F77 /* Application */,
 				5B2D0F0929574A5A00376F77 /* Main Module */,
-				5B2D0F0B29574A6800376F77 /* Resources */,
+				5B2D0F1B29575B5A00376F77 /* NewSpend Module */,
 				5B2D0F0A29574A6000376F77 /* View */,
+				5B2D0F2E2957980D00376F77 /* Model */,
+				5B2D0F2B2957979500376F77 /* Services */,
+				5B2D0F0B29574A6800376F77 /* Resources */,
 				5B2D0F0829574A2E00376F77 /* Supporting files */,
 				5B2D0F1429574BFF00376F77 /* Extensions */,
 				5B2D0EF92957493800376F77 /* spendTrack.xcdatamodeld */,
@@ -161,7 +175,8 @@
 		5B2D0F1129574AE900376F77 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				5B2D0F1229574AF300376F77 /* MainViewModel.swift */,
+				5B2D0F1229574AF300376F77 /* BtcViewModel.swift */,
+				5B2D0F412957B83100376F77 /* TransactionViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -170,6 +185,7 @@
 			isa = PBXGroup;
 			children = (
 				5B2D0F1529574C0D00376F77 /* UIView+Extension.swift */,
+				5B2D0F432957BA5100376F77 /* String+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -189,6 +205,7 @@
 				5B2D0F2029575B9A00376F77 /* NewSpendView.swift */,
 				5B2D0F2229577B7D00376F77 /* CategoryCollectionView.swift */,
 				5B2D0F2429577BCE00376F77 /* CategoryCell.swift */,
+				5B2D0F3F2957B43B00376F77 /* AddSpendButton.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -199,6 +216,23 @@
 				5B2D0F1E29575B7A00376F77 /* NewSpendController.swift */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		5B2D0F2B2957979500376F77 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				5B2D0F2C295797AB00376F77 /* Network.swift */,
+				5B2D0F312957A47000376F77 /* DataManager.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		5B2D0F2E2957980D00376F77 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				5B2D0F2F2957984D00376F77 /* Bitcoin.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -271,20 +305,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B2D0F302957984D00376F77 /* Bitcoin.swift in Sources */,
 				5B2D0F2529577BCE00376F77 /* CategoryCell.swift in Sources */,
 				5B2D0F1A29574F6E00376F77 /* TransactionsTableView.swift in Sources */,
 				5B2D0EF52957493800376F77 /* MainController.swift in Sources */,
 				5B2D0F1629574C0D00376F77 /* UIView+Extension.swift in Sources */,
 				5B2D0EF12957493800376F77 /* AppDelegate.swift in Sources */,
+				5B2D0F2D295797AB00376F77 /* Network.swift in Sources */,
 				5B2D0EFB2957493800376F77 /* spendTrack.xcdatamodeld in Sources */,
+				5B2D0F442957BA5100376F77 /* String+Extension.swift in Sources */,
 				5B2D0F1F29575B7A00376F77 /* NewSpendController.swift in Sources */,
+				5B2D0F322957A47100376F77 /* DataManager.swift in Sources */,
 				5B2D0F2129575B9A00376F77 /* NewSpendView.swift in Sources */,
 				5B2D0F1029574AB400376F77 /* MainView.swift in Sources */,
+				5B2D0F402957B43B00376F77 /* AddSpendButton.swift in Sources */,
 				5B2D0F272957845900376F77 /* Resources.swift in Sources */,
 				5B2D0F2329577B7D00376F77 /* CategoryCollectionView.swift in Sources */,
+				5B2D0F422957B83100376F77 /* TransactionViewModel.swift in Sources */,
 				5B2D0EF32957493800376F77 /* SceneDelegate.swift in Sources */,
 				5B2D0F1829574EB900376F77 /* TransactionCell.swift in Sources */,
-				5B2D0F1329574AF300376F77 /* MainViewModel.swift in Sources */,
+				5B2D0F1329574AF300376F77 /* BtcViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
