@@ -15,4 +15,10 @@ enum Resources {
         case entertainment = "🍹"
         case education = "👩‍🎓"
     }
+    
+    enum TransactionType: Int, CaseIterable {
+        case income = 0
+        case spend = 1
+        case unknown = 2
+    }
 }
