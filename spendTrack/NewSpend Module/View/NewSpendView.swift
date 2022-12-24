@@ -19,6 +19,7 @@ class NewSpendView: UIView {
     
     var amountField: UITextField = {
         let tf = UITextField()
+        tf.keyboardType = .numberPad
         tf.textColor = .black
         tf.layer.cornerRadius = 11
         tf.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: 0))
@@ -62,19 +63,22 @@ class NewSpendView: UIView {
         return field
     }()
     
-    var saveSpendingButton: UIButton = {
-       let button = UIButton()
-        button.backgroundColor = #colorLiteral(red: 0.918738544, green: 0.9187384844, blue: 0.9187384844, alpha: 1)
-        button.setTitle("Save spending", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.layer.cornerRadius = 11
-        button.isEnabled = false
-        return button
-    }()
+    var saveSpendingButton = AddSpendButton()
     
     var viewArray = [UIView]()
     var insideViewArray = [UIView]()
     var stackView = UIStackView()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupView()
+        setConstraints()
+        setConstraintsInsideViews()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     private func createViews() {
         let count = 3
@@ -124,15 +128,12 @@ class NewSpendView: UIView {
         configureStackView()
     }
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupView()
-        setConstraints()
-        setConstraintsInsideViews()
+    func createSaveTarget(target: Any?, action: Selector) {
+        saveSpendingButton.addTarget(target, action: action, for: .touchUpInside)
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    func createHideKB(target: Any?, action: Selector) {
+        saveAmountButton.addTarget(target, action: action, for: .touchUpInside)
     }
 }
 

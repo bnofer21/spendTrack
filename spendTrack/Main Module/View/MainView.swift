@@ -9,7 +9,7 @@ import UIKit
 
 class MainView: UIView {
     
-    var viewModel: MainViewModel? {
+    var viewModel: BtcViewModel? {
         didSet {
             configure()
         }
@@ -27,7 +27,6 @@ class MainView: UIView {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 14)
         label.textColor = .black
-        label.text = "16380 $"
         return label
     }()
     
@@ -90,7 +89,10 @@ class MainView: UIView {
     }
     
     private func configure() {
-        
+        guard let viewmodel = viewModel else { return }
+        DispatchQueue.main.async {
+            self.btcPriceLabel.text = "\(viewmodel.price) $"
+        }
     }
     
     private func setupView() {
