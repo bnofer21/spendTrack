@@ -11,6 +11,12 @@ class TransactionCell: UITableViewCell {
     
     static let id = "TransactionCell"
     
+    var viewModel: TransactionViewModel? {
+        didSet {
+            configure()
+        }
+    }
+    
     var spendIcon: UIImageView = {
        let iv = UIImageView()
         iv.backgroundColor = .lightGray
@@ -57,6 +63,23 @@ class TransactionCell: UITableViewCell {
         addView(categoryLabel)
         addView(spendDate)
         addView(amountLabel)
+    }
+    
+    private func configure() {
+        guard let viewModel = viewModel else { return }
+        spendIcon.image = viewModel.category.image()
+        switch viewModel.category {
+        case "🚘":
+            categoryLabel.text = "Car"
+        case "🛒":
+            categoryLabel.text = "Grocceries"
+        case "🍹":
+            categoryLabel.text = "Entertainment"
+        default:
+            categoryLabel.text = "Education"
+        }
+        spendDate.text = viewModel.date
+        amountLabel.text = "– \(viewModel.amount)$"
     }
 }
 
