@@ -22,7 +22,7 @@ struct TransactionViewModel {
     var date: String {
         guard let date = transaction.date else { return "" }
         let df = DateFormatter()
-        df.dateFormat = "dd MM yyyy HH:mm"
+        df.dateFormat = "dd/MM/yyyy HH:mm"
         return df.string(from: date)
     }
     

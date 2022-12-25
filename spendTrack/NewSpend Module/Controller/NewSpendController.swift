@@ -10,7 +10,17 @@ import UIKit
 class NewSpendController: UIViewController {
     
     var newSpendView = NewSpendView()
+    var balance: Balance
     var transaction = Transaction(entity: Transaction.entity(), insertInto: nil)
+    
+    init(balance: Balance) {
+        self.balance = balance
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func loadView() {
         view = newSpendView
@@ -40,14 +50,12 @@ class NewSpendController: UIViewController {
     
     private func checkAllFields() {
         guard transaction.amount > 0,
-              let _ = transaction.date,
               let _ = transaction.category
         else {
             newSpendView.saveSpendingButton.isEnabled = false
             return
         }
         newSpendView.saveSpendingButton.isEnabled = true
-        
     }
     
     @objc func hideKB() {
@@ -56,10 +64,17 @@ class NewSpendController: UIViewController {
     }
     
     @objc func saveTransaction() {
+        transaction.date = newSpendView.dateField.date
+        balance.currentBalance -= transaction.amount
+        balance.spendAllTime += transaction.amount
         DataManager.shared.saveTransaction(transaction: transaction) {
-            if let rootvc = navigationController?.viewControllers.first as? MainController {
-                rootvc.transactions.insert(transaction, at: 0)
-                self.navigationController?.popToRootViewController(animated: true)
+            DataManager.shared.saveBalance {
+                if let rootvc = navigationController?.viewControllers.first as? MainController {
+                    rootvc.balance = balance
+                    rootvc.transactions.append(transaction)
+                    rootvc.updateData()
+                    self.navigationController?.popToRootViewController(animated: true)
+                }
             }
         }
     }
@@ -104,9 +119,10 @@ extension NewSpendController: UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         guard let text = textField.text, !text.isEmpty else { return }
-        transaction.type = Int64(Resources.TransactionType.spend.rawValue)
+        transaction.type = Resources.TransactionType.spend.rawValue
         transaction.amount = Int64(text) ?? 0
-        transaction.date = Date.now
         checkAllFields()
     }
 }
+
+
