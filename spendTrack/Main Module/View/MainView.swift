@@ -15,6 +15,12 @@ class MainView: UIView {
         }
     }
     
+    var balanceViewmodel: BalanceViewModel? {
+        didSet {
+            configureBalanceUI()
+        }
+    }
+    
     var btcCoin: UIImageView = {
         let iv = UIImageView()
         iv.image = UIImage(named: "btc")
@@ -49,7 +55,9 @@ class MainView: UIView {
        let label = UILabel()
         label.textColor = .white
         label.font = UIFont.systemFont(ofSize: 40)
-        label.text = "16318$"
+        label.text = "0$"
+        label.numberOfLines = 0
+        label.adjustsFontSizeToFitWidth = true
         return label
     }()
     
@@ -88,11 +96,25 @@ class MainView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        guard balanceLabel.text!.count > 6 else { return }
+        let scaleFactor = CGFloat(integerLiteral: balanceLabel.text!.count/4)
+        balanceLabel.font = UIFont.systemFont(ofSize: balanceLabel.font.pointSize-scaleFactor)
+    }
+    
     private func configure() {
         guard let viewmodel = viewModel else { return }
         DispatchQueue.main.async {
             self.btcPriceLabel.text = "\(viewmodel.price) $"
         }
+    }
+    
+    private func configureBalanceUI() {
+        guard let balanceViewmodel = balanceViewmodel else { return }
+        balanceLabel.text = "\(balanceViewmodel.currentbalance)$"
+        spendStats[0].text = "All time spendings: \(balanceViewmodel.allTimeSpent)$"
+        spendStats[1].text = "Today spendings: \(balanceViewmodel.todaySpent)$"
     }
     
     private func setupView() {
@@ -116,9 +138,9 @@ class MainView: UIView {
             stat.textColor = .white
             stat.font = UIFont.systemFont(ofSize: 14)
             if i == 0 {
-                stat.text = "All time spendings: 14814$"
+                stat.text = "All time spendings: 0$"
             } else {
-                stat.text = "Today spendings: 414$"
+                stat.text = "Today spendings: 0$"
             }
             stat.sizeToFit()
             stackView.addArrangedSubview(stat)
@@ -129,6 +151,10 @@ class MainView: UIView {
         stackView.axis = .vertical
         stackView.distribution = .fillEqually
         stackView.spacing = 0
+    }
+    
+    func addMoneyTarget(target: Any?, action: Selector) {
+        addMoneyButton.addTarget(target, action: action, for: .touchUpInside)
     }
     
     func addSpendTarget(target: Any?, action: Selector) {

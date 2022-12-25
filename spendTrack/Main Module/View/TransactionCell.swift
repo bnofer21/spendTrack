@@ -35,6 +35,7 @@ class TransactionCell: UITableViewCell {
     var spendDate: UILabel = {
        let label = UILabel()
         label.numberOfLines = 0
+        label.font = UIFont.systemFont(ofSize: 13)
         label.text = "13/10/2022 19:54"
         label.textColor = .lightGray
         return label
@@ -75,11 +76,17 @@ class TransactionCell: UITableViewCell {
             categoryLabel.text = "Grocceries"
         case "🍹":
             categoryLabel.text = "Entertainment"
-        default:
+        case "👩‍🎓":
             categoryLabel.text = "Education"
+        default:
+            categoryLabel.text = "Income"
         }
         spendDate.text = viewModel.date
-        amountLabel.text = "– \(viewModel.amount)$"
+        if viewModel.category == "🤑" {
+            amountLabel.text = "+ \(viewModel.amount)"
+        } else {
+            amountLabel.text = "– \(viewModel.amount)"
+        }
     }
 }
 
@@ -96,7 +103,7 @@ extension TransactionCell {
             categoryLabel.topAnchor.constraint(equalTo: topAnchor, constant: 5),
             
             spendDate.leadingAnchor.constraint(equalTo: spendIcon.trailingAnchor, constant: 5),
-            spendDate.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -5),
+            spendDate.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
             
             amountLabel.centerYAnchor.constraint(equalTo: spendIcon.centerYAnchor),
             amountLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15),

@@ -26,7 +26,6 @@ class NewSpendView: UIView {
         tf.rightView = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: 0))
         tf.leftViewMode = .always
         tf.rightViewMode = .always
-        tf.placeholder = "Amount"
         tf.backgroundColor = #colorLiteral(red: 0.918738544, green: 0.9187384844, blue: 0.9187384844, alpha: 1)
         return tf
     }()
@@ -135,6 +134,7 @@ class NewSpendView: UIView {
     func createHideKB(target: Any?, action: Selector) {
         saveAmountButton.addTarget(target, action: action, for: .touchUpInside)
     }
+    
 }
 
 extension NewSpendView {
