@@ -83,9 +83,9 @@ class TransactionCell: UITableViewCell {
         }
         spendDate.text = viewModel.date
         if viewModel.category == "🤑" {
-            amountLabel.text = "+ \(viewModel.amount)"
+            amountLabel.text = "+ \(viewModel.amount)$"
         } else {
-            amountLabel.text = "– \(viewModel.amount)"
+            amountLabel.text = "– \(viewModel.amount)$"
         }
     }
 }
