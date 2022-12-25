@@ -42,4 +42,43 @@ struct DataManager {
             result = result.sorted(by: { $0.date! > $1.date! })
             completion(result)
         }
+    
+    func loadBalance(completion: @escaping (Balance)->Void) {
+        let context = appDelegate.persistentContainer.viewContext
+        let fetchRequest: NSFetchRequest<Balance> = Balance.fetchRequest()
+        fetchRequest.fetchLimit = 1
+        do {
+            guard let result: Balance = try context.fetch(fetchRequest).first else {
+                createbalanceEntity { balance in
+                    completion(balance)
+                }
+                return
+            }
+            completion(result)
+        } catch let error as NSError {
+            print("Could not fetch. \(error.localizedDescription)")
+        }
+    }
+    
+    func saveBalance(completion: ()->Void) {
+        let context = appDelegate.persistentContainer.viewContext
+        do {
+            try context.save()
+            completion()
+        } catch let error as NSError {
+            print(error.localizedDescription)
+        }
+    }
+    
+    func createbalanceEntity(completion: @escaping(Balance)->Void) {
+        let context = appDelegate.persistentContainer.viewContext
+        guard let entity = NSEntityDescription.entity(forEntityName: "Balance", in: context) else { return }
+        let balanceObject = Balance(entity: entity, insertInto: context)
+        do {
+            try context.save()
+            completion(balanceObject)
+        } catch let error as NSError {
+            print(error.localizedDescription)
+        }
+    }
 }
