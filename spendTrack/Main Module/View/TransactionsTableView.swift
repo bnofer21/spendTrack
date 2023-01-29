@@ -20,5 +20,6 @@ class TransactionsTableView: UITableView {
     
     private func setupView() {
         register(TransactionCell.self, forCellReuseIdentifier: TransactionCell.id)
+        register(LoadingCell.self, forCellReuseIdentifier: LoadingCell.id)
     }
 }
