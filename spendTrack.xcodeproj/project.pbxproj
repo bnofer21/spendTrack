@@ -30,6 +30,7 @@
 		5B2D0F422957B83100376F77 /* TransactionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2D0F412957B83100376F77 /* TransactionViewModel.swift */; };
 		5B2D0F442957BA5100376F77 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2D0F432957BA5100376F77 /* String+Extension.swift */; };
 		5B2D0F462958404700376F77 /* BalanceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2D0F452958404700376F77 /* BalanceViewModel.swift */; };
+		5B2D0F48295C19A900376F77 /* LoadingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2D0F47295C19A900376F77 /* LoadingCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +59,7 @@
 		5B2D0F412957B83100376F77 /* TransactionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionViewModel.swift; sourceTree = "<group>"; };
 		5B2D0F432957BA5100376F77 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		5B2D0F452958404700376F77 /* BalanceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceViewModel.swift; sourceTree = "<group>"; };
+		5B2D0F47295C19A900376F77 /* LoadingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,6 +164,7 @@
 				5B2D0F0F29574AB400376F77 /* MainView.swift */,
 				5B2D0F1729574EB900376F77 /* TransactionCell.swift */,
 				5B2D0F1929574F6E00376F77 /* TransactionsTableView.swift */,
+				5B2D0F47295C19A900376F77 /* LoadingCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -322,6 +325,7 @@
 				5B2D0F2129575B9A00376F77 /* NewSpendView.swift in Sources */,
 				5B2D0F1029574AB400376F77 /* MainView.swift in Sources */,
 				5B2D0F402957B43B00376F77 /* AddSpendButton.swift in Sources */,
+				5B2D0F48295C19A900376F77 /* LoadingCell.swift in Sources */,
 				5B2D0F272957845900376F77 /* Resources.swift in Sources */,
 				5B2D0F2329577B7D00376F77 /* CategoryCollectionView.swift in Sources */,
 				5B2D0F462958404700376F77 /* BalanceViewModel.swift in Sources */,
