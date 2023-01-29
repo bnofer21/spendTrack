@@ -15,7 +15,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         var nav = UINavigationController()
-        DataManager.shared.loadTransactions { trans in
+        DataManager.shared.loadTransactions(startIndex: 0) { trans in
             DataManager.shared.loadBalance { balance in
                 nav = UINavigationController(rootViewController: MainController(transactions: trans, balance: balance))
             }
