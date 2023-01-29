@@ -30,7 +30,7 @@ struct DataManager {
         }
     }
     
-    func loadTransactions(completion: @escaping([Transaction])->Void) {
+    func loadTransactions(startIndex: Int, completion: @escaping([Transaction])->Void) {
             let context = appDelegate.persistentContainer.viewContext
             var result = [Transaction]()
             let fetchRequest: NSFetchRequest<Transaction> = Transaction.fetchRequest()
@@ -39,9 +39,13 @@ struct DataManager {
             } catch let error as NSError {
                 print("Could not fetch. \(error.localizedDescription)")
             }
-            result = result.sorted(by: { $0.date! > $1.date! })
-            completion(result)
+        if startIndex < result.count-20 {
+            result = Array(result[startIndex...startIndex+20])
+        } else {
+            result = Array(result[startIndex..<result.count])
         }
+        completion(result)
+    }
     
     func loadBalance(completion: @escaping (Balance)->Void) {
         let context = appDelegate.persistentContainer.viewContext

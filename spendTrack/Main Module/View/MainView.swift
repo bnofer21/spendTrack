@@ -96,12 +96,12 @@ class MainView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        guard balanceLabel.text!.count > 6 else { return }
-        let scaleFactor = CGFloat(integerLiteral: balanceLabel.text!.count/4)
-        balanceLabel.font = UIFont.systemFont(ofSize: balanceLabel.font.pointSize-scaleFactor)
-    }
+//    override func layoutSubviews() {
+//        super.layoutSubviews()
+//        guard balanceLabel.text!.count > 6 else { return }
+//        let scaleFactor = CGFloat(integerLiteral: balanceLabel.text!.count/4)
+//        balanceLabel.font = UIFont.systemFont(ofSize: balanceLabel.font.pointSize-scaleFactor)
+//    }
     
     private func configure() {
         guard let viewmodel = viewModel else { return }
