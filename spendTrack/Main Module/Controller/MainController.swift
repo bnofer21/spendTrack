@@ -163,7 +163,6 @@ extension MainController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        print(indexPath.row)
         if indexPath.row == transactions.count-1, !isLoading {
             loadMoreData(startIndex: indexPath.row+1)
             print("loaded more")

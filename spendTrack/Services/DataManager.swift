@@ -39,6 +39,7 @@ struct DataManager {
             } catch let error as NSError {
                 print("Could not fetch. \(error.localizedDescription)")
             }
+        result = result.sorted(by: { $0.date! > $1.date! })
         if startIndex < result.count-20 {
             result = Array(result[startIndex...startIndex+20])
         } else {

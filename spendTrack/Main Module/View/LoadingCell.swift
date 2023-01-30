@@ -25,6 +25,7 @@ class LoadingCell: UITableViewCell {
     
     private func setupView() {
         addView(activityIndicator)
+        separatorInset = UIEdgeInsets(top: 0, left: 400, bottom: 0, right: 0)
     }
     
     private func setConstraints() {
