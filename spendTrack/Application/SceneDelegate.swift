@@ -14,16 +14,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
-        var nav = UINavigationController()
-        DataManager.shared.loadTransactions(startIndex: 0) { trans in
-            DataManager.shared.loadBalance { balance in
-                nav = UINavigationController(rootViewController: MainController(transactions: trans, balance: balance))
-            }
-        }
-        window = UIWindow(windowScene: windowScene)
-        window?.rootViewController = nav
-        window?.overrideUserInterfaceStyle = .light
-        window?.makeKeyAndVisible()
+        
+        let window = UIWindow(windowScene: windowScene)
+        RootWireframe.setupWith(window)
+        self.window = window
     }
     
     func sceneDidDisconnect(_ scene: UIScene) {
