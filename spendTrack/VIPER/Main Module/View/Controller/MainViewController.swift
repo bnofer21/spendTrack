@@ -16,16 +16,20 @@ protocol MainViewInput: AnyObject {
 
 protocol MainViewOutput: AnyObject {
     func viewDidLoad()
+    func loadMoreTrans(start: Int)
     func saveTrans(amount: Int, category: String, date: Date)
-    func showSpendVC()
 }
 
-final class MainViewController: UIViewController, MainViewInput {
+final class MainViewController: UIViewController, MainViewInput, Coordinating {
+    
+    var coordinator: Coordinator?
     
     var output: MainViewOutput?
     var mainSection: MainSectionModel?
     
     var mainView = MainView()
+    
+    var isLoading = true
     
     override func loadView() {
         view = mainView
@@ -33,6 +37,7 @@ final class MainViewController: UIViewController, MainViewInput {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "Main"
         setTargets()
         output?.viewDidLoad()
         mainView.transactionsTableView.delegate = self
@@ -41,7 +46,8 @@ final class MainViewController: UIViewController, MainViewInput {
     
     func updateForSection(_ section: MainSectionModel) {
         self.mainSection = section
-        DispatchQueue.main.async { [weak self] in
+        isLoading = false
+        DispatchQueue.main.asyncAfter(deadline: .now()+3) { [weak self] in
             self?.mainView.transactionsTableView.reloadData()
         }
     }
@@ -67,6 +73,13 @@ final class MainViewController: UIViewController, MainViewInput {
         mainView.addSpendTarget(target: self, action: #selector(addSpend))
     }
     
+    private func loadMore(startIndex: Int) {
+        if !isLoading {
+            isLoading.toggle()
+            output?.loadMoreTrans(start: startIndex)
+        }
+    }
+    
     @objc private func addMoney() {
         let alert = UIAlertController(title: "Add money", message: "Write amount:", preferredStyle: .alert)
         alert.addTextField { textfield in
@@ -84,14 +97,14 @@ final class MainViewController: UIViewController, MainViewInput {
     }
     
     @objc private func addSpend() {
-        output?.showSpendVC()
+        coordinator?.eventOccured(with: .newSpend)
     }
 }
 
 extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        if let section = mainSection, section.rows.count > 10 {
+        if let section = mainSection, !section.allLoaded {
             return 2
         } else {
             return 1
@@ -99,7 +112,8 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let mainSection = mainSection, section == 0 {
+        if section == 0 {
+            guard let mainSection = mainSection else { return 0 }
             return mainSection.rows.count
         } else {
             return 1
@@ -107,7 +121,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let section = mainSection {
+        if indexPath.section == 0, let section = mainSection {
             let model = section.rows[indexPath.row]
             guard let cell = tableView.dequeueReusableCell(withIdentifier: model.cellIdentifier, for: indexPath) as? BaseTransactionCell else { return UITableViewCell() }
             cell.model = model
@@ -120,8 +134,15 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
     
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        guard let mainSection = mainSection else { return }
+        if indexPath.row == mainSection.rows.count-1, !mainSection.allLoaded {
+            loadMore(startIndex: indexPath.row+1)
+        }
+    }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return mainSection == nil ? 60 : 50
+        return indexPath.section == 0 ? 50 : 70
     }
     
     
