@@ -10,9 +10,8 @@ import Foundation
 class NewSpendSectionModel: CollectionSectionRowsRepresentable {
     var rows: [CollectionCellIdentifiable]
     
-    init() {
+    init(_ categories: [String]) {
         rows = [CollectionCellIdentifiable]()
-        let categories = Resources.Category.allCases
-        categories.forEach({ rows.append(NewSpendBaseCategoryCellModel(category: $0.rawValue)) })
+        categories.forEach{ rows.append(NewSpendBaseCategoryCellModel($0)) }
     }
 }

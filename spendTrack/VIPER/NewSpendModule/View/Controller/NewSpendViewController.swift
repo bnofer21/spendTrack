@@ -9,7 +9,9 @@ import Foundation
 import UIKit
 
 protocol NewSpendViewInput: AnyObject {
-    
+    func updateForSection(_ section: NewSpendSectionModel)
+    func dismissVC()
+    func showError(_ error: String)
 }
 
 protocol NewSpendViewOutput {
@@ -17,8 +19,9 @@ protocol NewSpendViewOutput {
     func saveTrans(amount: Int, category: String, date: Date)
 }
 
-final class NewSpendViewController: UIViewController, NewSpendViewInput {
+final class NewSpendViewController: UIViewController, NewSpendViewInput, Coordinating {
     
+    var coordinator: Coordinator?
     var output: NewSpendViewOutput?
     var spendSection: NewSpendSectionModel?
     
@@ -33,6 +36,32 @@ final class NewSpendViewController: UIViewController, NewSpendViewInput {
     override func viewDidLoad() {
         super.viewDidLoad()
         targets()
+        delegates()
+        output?.viewDidLoad()
+        title = "Add"
+    }
+    
+    internal func updateForSection(_ section: NewSpendSectionModel) {
+        self.spendSection = section
+        DispatchQueue.main.async { [weak self] in
+            self?.newSpendView.categoryCollView.reloadData()
+        }
+    }
+    
+    internal func dismissVC() {
+        coordinator?.eventOccured(with: .didAddSpend)
+    }
+    
+    internal func showError(_ error: String) {
+        DispatchQueue.main.async { [weak self] in
+            let alertController = UIAlertController()
+            alertController.title = "Error"
+            alertController.message = error
+            
+            let ok = UIAlertAction(title: "OK", style: .cancel)
+            alertController.addAction(ok)
+            self?.present(alertController, animated: true)
+        }
     }
     
     private func targets() {
@@ -48,10 +77,10 @@ final class NewSpendViewController: UIViewController, NewSpendViewInput {
     
     private func checkFields() {
         guard let text = newSpendView.amountField.text else { return }
-        if let _ = category, !text.isEmpty {
-            newSpendView.saveSpendingButton.isHidden = false
+        if let _ = category, let _ = Int(text) {
+            newSpendView.saveSpendingButton.isEnabled = true
         } else {
-            newSpendView.saveSpendingButton.isHidden = true
+            newSpendView.saveSpendingButton.isEnabled = false
         }
     }
     
@@ -72,21 +101,29 @@ final class NewSpendViewController: UIViewController, NewSpendViewInput {
 extension NewSpendViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        Resources.Category.allCases.count
+        if let spendSection = spendSection {
+            return spendSection.rows.count
+        } else {
+            return 0
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let spendSection = spendSection {
             let model = spendSection.rows[indexPath.row]
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: model.cellIdentifier, for: indexPath) as? BaseCollectionCell else { return UICollectionViewCell() }
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: model.cellIdentifier, for: indexPath) as? BaseCollectionCell else {
+                return UICollectionViewCell() }
             cell.model = model
             return cell
+        } else {
+            return UICollectionViewCell()
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        category = Resources.Category.allCases[indexPath.row].rawValue
-        checkFields()
+        guard let model = spendSection?.rows[indexPath.row] as? NewSpendBaseCategoryCellModel else { return }
+        category = model.category
+        hideKeyboard()
     }
     
 }

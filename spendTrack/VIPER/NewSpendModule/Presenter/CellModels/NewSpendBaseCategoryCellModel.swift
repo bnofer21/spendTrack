@@ -13,9 +13,9 @@ final class NewSpendBaseCategoryCellModel: NewSpendBaseCellModel {
         return "NewSpendBaseCategoryCell"
     }
     
-    var category: Resources.Category.RawValue
+    var category: String
     
-    init(category: Resources.Category.RawValue) {
+    init(_ category: String) {
         self.category = category
     }
 }
