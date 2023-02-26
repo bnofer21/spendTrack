@@ -9,76 +9,116 @@ import Foundation
 import UIKit
 import CoreData
 
-struct DataManager {
-    
-    static let shared = DataManager()
+protocol DataManagerInterface {
+    func loadTrans(startIndex: Int, completion: @escaping ([Transaction]?, String?) -> Void)
+    func loadBalance(completion: @escaping (Balance?, String?) -> Void)
+    func saveTrans(amount: Int, category: String, date: Date, completion: @escaping (String?) -> Void)
+}
+
+final class DataManager: DataManagerInterface {
     
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
-    func saveTransaction(transaction: Transaction, completion: ()->Void) {
+    func loadTrans(startIndex: Int, completion: @escaping ([Transaction]?, String?) -> Void) {
         let context = appDelegate.persistentContainer.viewContext
-        guard let entity = NSEntityDescription.entity(forEntityName: "Transaction", in: context) else { return }
-        let noteObject = Transaction(entity: entity, insertInto: context)
-        noteObject.amount = transaction.amount
-        noteObject.category = transaction.category
-        noteObject.date = transaction.date
+        var result = [Transaction]()
+        let fetchRequest: NSFetchRequest<Transaction> = Transaction.fetchRequest()
         do {
-            try context.save()
-            completion()
-        } catch let error as NSError{
-            print(error.localizedDescription)
+            result = try context.fetch(fetchRequest)
+        } catch let error as NSError {
+            completion(nil, error.localizedDescription)
         }
+        result = result.sorted(by: { $0.date! > $1.date! })
+        if startIndex < result.count-20 {
+            result = Array(result[startIndex...startIndex+20])
+        } else {
+            result = Array(result[startIndex..<result.count])
+        }
+        completion(result, nil)
     }
     
-    func loadTransactions(completion: @escaping([Transaction])->Void) {
-            let context = appDelegate.persistentContainer.viewContext
-            var result = [Transaction]()
-            let fetchRequest: NSFetchRequest<Transaction> = Transaction.fetchRequest()
-            do {
-              result = try context.fetch(fetchRequest)
-            } catch let error as NSError {
-                print("Could not fetch. \(error.localizedDescription)")
-            }
-            result = result.sorted(by: { $0.date! > $1.date! })
-            completion(result)
-        }
-    
-    func loadBalance(completion: @escaping (Balance)->Void) {
+    func loadBalance(completion: @escaping (Balance?, String?) -> Void) {
         let context = appDelegate.persistentContainer.viewContext
         let fetchRequest: NSFetchRequest<Balance> = Balance.fetchRequest()
         fetchRequest.fetchLimit = 1
         do {
             guard let result: Balance = try context.fetch(fetchRequest).first else {
-                createbalanceEntity { balance in
-                    completion(balance)
+                createbalanceEntity { balance, error in
+                    if let error = error {
+                        completion(nil, error)
+                    }
+                    completion(balance, nil)
+                    print("created new balance")
                 }
                 return
             }
-            completion(result)
+            completion(result, nil)
         } catch let error as NSError {
-            print("Could not fetch. \(error.localizedDescription)")
+            completion(nil, error.localizedDescription)
         }
     }
     
-    func saveBalance(completion: ()->Void) {
+    func saveTrans(amount: Int, category: String, date: Date, completion: @escaping (String?) -> Void) {
         let context = appDelegate.persistentContainer.viewContext
-        do {
-            try context.save()
-            completion()
-        } catch let error as NSError {
-            print(error.localizedDescription)
+        guard let entity = NSEntityDescription.entity(forEntityName: "Transaction", in: context) else {
+            completion("Error creating entity")
+            return
+        }
+        let noteObject = Transaction(entity: entity, insertInto: context)
+        let calendar = Calendar.current
+        let type: Resources.TransactionType = category == "🤑" ? .income : .spend
+        noteObject.amount = Int64(amount)
+        noteObject.category = category
+        noteObject.date = date
+        saveBalance(amount: Int(noteObject.amount), type: type, today: calendar.isDateInToday(noteObject.date!)) { balance, error in
+            if let error = error {
+                completion(error)
+            } else {
+                do {
+                    try context.save()
+                    completion(nil)
+                } catch let error as NSError {
+                    completion(error.localizedDescription)
+                }
+            }
         }
     }
     
-    func createbalanceEntity(completion: @escaping(Balance)->Void) {
+    private func saveBalance(amount: Int, type: Resources.TransactionType, today: Bool, completion: @escaping (Balance?, String?) -> Void) {
         let context = appDelegate.persistentContainer.viewContext
-        guard let entity = NSEntityDescription.entity(forEntityName: "Balance", in: context) else { return }
+        loadBalance { balance, error in
+            if let error = error {
+                completion(nil, error)
+            } else if let balance = balance {
+                if type == .income {
+                    balance.setValue(balance.currentBalance + Int64(amount), forKey: "currentBalance")
+                } else {
+                    balance.setValue(balance.currentBalance - Int64(amount), forKey: "currentBalance")
+                    balance.setValue(balance.spendAllTime + Int64(amount), forKey: "spendAllTime")
+                    if today { balance.setValue(balance.spendToday + Int64(amount), forKey: "spendToday")}
+                }
+                do {
+                    try context.save()
+                    completion(balance, nil)
+                } catch let error as NSError {
+                    completion(nil, error.localizedDescription)
+                }
+            }
+        }
+    }
+    
+    private func createbalanceEntity(completion: @escaping(Balance?, String?)->Void) {
+        let context = appDelegate.persistentContainer.viewContext
+        guard let entity = NSEntityDescription.entity(forEntityName: "Balance", in: context) else {
+            completion(nil, "Error creating Balance entity")
+            return 
+        }
         let balanceObject = Balance(entity: entity, insertInto: context)
         do {
             try context.save()
-            completion(balanceObject)
+            completion(balanceObject, nil)
         } catch let error as NSError {
-            print(error.localizedDescription)
+            completion(nil, error.localizedDescription)
         }
     }
 }
