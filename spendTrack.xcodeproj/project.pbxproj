@@ -150,7 +150,6 @@
 			children = (
 				5B795D0A29A0FDED00A9E96D /* VIPER */,
 				5B2D0F0729574A2000376F77 /* Application */,
-				5B2D0F2E2957980D00376F77 /* Model */,
 				5B2D0F2B2957979500376F77 /* Services */,
 				5B2D0F0B29574A6800376F77 /* Resources */,
 				5B2D0F0829574A2E00376F77 /* Supporting files */,
@@ -203,13 +202,6 @@
 				5B2D0F312957A47000376F77 /* DataManager.swift */,
 			);
 			path = Services;
-			sourceTree = "<group>";
-		};
-		5B2D0F2E2957980D00376F77 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		5B795D0A29A0FDED00A9E96D /* VIPER */ = {
