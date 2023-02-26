@@ -10,7 +10,7 @@ The app for tracking your daily spendings and incomings.
 
 
 # Main stack
-UIKit, NavigationController, URLSession, TableView/CollectionView, AlertController, CoreData, MVVM, AutoLayout
+UIKit, NavigationController, URLSession, TableView/CollectionView, AlertController, CoreData, VIPER-C, AutoLayout
 
 # Description 
 This app lets you track your spendings and incomings, counting daily and all-time spendings and also shows you actual price of bitcoin. 
