@@ -63,6 +63,7 @@
 		5BEF29AD29AA9AFD00496D41 /* NewSpendSectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEF29AC29AA9AFD00496D41 /* NewSpendSectionModel.swift */; };
 		5BEF29B029AA9C6800496D41 /* BaseCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEF29AF29AA9C6800496D41 /* BaseCollectionCell.swift */; };
 		5BEF29B229AAA1AA00496D41 /* NewSpendConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEF29B129AAA1AA00496D41 /* NewSpendConfigurator.swift */; };
+		5BEF29B529AB68AD00496D41 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEF29B429AB68AD00496D41 /* Coordinator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -124,6 +125,7 @@
 		5BEF29AC29AA9AFD00496D41 /* NewSpendSectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSpendSectionModel.swift; sourceTree = "<group>"; };
 		5BEF29AF29AA9C6800496D41 /* BaseCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionCell.swift; sourceTree = "<group>"; };
 		5BEF29B129AAA1AA00496D41 /* NewSpendConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSpendConfigurator.swift; sourceTree = "<group>"; };
+		5BEF29B429AB68AD00496D41 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -308,6 +310,7 @@
 		5B795D0A29A0FDED00A9E96D /* VIPER */ = {
 			isa = PBXGroup;
 			children = (
+				5BEF29B329AB644300496D41 /* Coordinator */,
 				5BEF298D29AA09B300496D41 /* NewSpendModule */,
 				5BEF298C29AA099D00496D41 /* Main Module */,
 			);
@@ -335,12 +338,12 @@
 		5B795D0D29A0FDFC00A9E96D /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
+				5BEF295B29A4BBCD00496D41 /* MainPresenter.swift */,
 				5BEF297B29A9658C00496D41 /* Views */,
 				5BEF296F29A4D12C00496D41 /* Models */,
 				5BEF296829A4CE4C00496D41 /* CellModels */,
 				5BEF296529A4CDB100496D41 /* Protocols */,
 				5BEF296229A4BE8200496D41 /* SectionModel */,
-				5BEF295B29A4BBCD00496D41 /* MainPresenter.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -488,11 +491,11 @@
 		5BEF299129AA09DA00496D41 /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
+				5BEF299529AA8BB500496D41 /* NewSpendPresenter.swift */,
 				5BEF29AE29AA9C5500496D41 /* Cells */,
 				5BEF29AA29AA9AE400496D41 /* SectionModels */,
 				5BEF299E29AA994000496D41 /* CellModels */,
 				5BEF299D29AA993B00496D41 /* Protocols */,
-				5BEF299529AA8BB500496D41 /* NewSpendPresenter.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -559,6 +562,14 @@
 				5BEF29AF29AA9C6800496D41 /* BaseCollectionCell.swift */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		5BEF29B329AB644300496D41 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				5BEF29B429AB68AD00496D41 /* Coordinator.swift */,
+			);
+			path = Coordinator;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -648,6 +659,7 @@
 				5B2D0EF12957493800376F77 /* AppDelegate.swift in Sources */,
 				5B2D0F2D295797AB00376F77 /* PriceLoader.swift in Sources */,
 				5B2D0EFB2957493800376F77 /* spendTrack.xcdatamodeld in Sources */,
+				5BEF29B529AB68AD00496D41 /* Coordinator.swift in Sources */,
 				5BEF299629AA8BB500496D41 /* NewSpendPresenter.swift in Sources */,
 				5BEF29A029AA995300496D41 /* CollectionCellModelRepresentable.swift in Sources */,
 				5B2D0F442957BA5100376F77 /* String+Extension.swift in Sources */,
