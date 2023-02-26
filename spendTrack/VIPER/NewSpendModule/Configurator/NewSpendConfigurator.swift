@@ -20,15 +20,17 @@ final class NewSpendConfigurator {
     private func configure(viewController: NewSpendViewController) {
         
         let router = NewSpendRouter()
-        
         let presenter = NewSpendPresenter()
+        let interactor = NewSpendInteractor()
+        
         presenter.view = viewController
         presenter.router = router
         
-        let interactor = NewSpendInteractor()
         interactor.output = presenter
+        interactor.dataManager = DataManager()
         
         presenter.interactor = interactor
+        
         viewController.output = presenter
     }
 }

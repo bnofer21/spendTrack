@@ -13,11 +13,17 @@ class BaseLoadingCell: BaseCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        setupView()
         setConstraints()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setupView() {
+        addView(activityIndicator)
+        separatorInset = UIEdgeInsets.init(top: 0, left: 400, bottom: 0, right: 0)
     }
     
     internal override func updateViews() {

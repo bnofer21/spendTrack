@@ -27,8 +27,8 @@ final class MainPresenter: MainRouterInput, MainViewOutput, MainInteractorOutput
         interactor?.saveTrans(amount: amount, category: category, date: date)
     }
     
-    func didLoad(_ trans: [Transaction]) {
-        let section = MainSectionModel(trans)
+    func didLoad(_ trans: [Transaction], allLoaded: Bool) {
+        let section = MainSectionModel(trans, allLoaded: allLoaded)
         view?.updateForSection(section)
     }
     
@@ -48,8 +48,8 @@ final class MainPresenter: MainRouterInput, MainViewOutput, MainInteractorOutput
         }
     }
     
-    func showSpendVC() {
-        router?.showSpendVC()
+    func loadMoreTrans(start: Int) {
+        interactor?.loadTrans(start: start)
     }
     
 }

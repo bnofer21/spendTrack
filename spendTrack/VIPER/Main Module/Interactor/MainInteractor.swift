@@ -16,7 +16,7 @@ protocol MainInteractorInput {
 }
 
 protocol MainInteractorOutput {
-    func didLoad(_ trans: [Transaction])
+    func didLoad(_ trans: [Transaction], allLoaded: Bool)
     func didLoadPrice(_ coin: Bitcoin)
     func didReceive(_ error: String)
     func didLoadBalance(_ balance: Balance)
@@ -30,11 +30,11 @@ final class MainInteractor: MainInteractorInput {
     var dataManager: DataManagerInterface?
     
     func loadTrans(start: Int) {
-        dataManager?.loadTrans(startIndex: start, completion: { [weak self] trans, error in
+        dataManager?.loadTrans(startIndex: start, completion: { [weak self] trans, error, allLoaded in
             if let error = error {
                 self?.output?.didReceive(error)
             } else if let trans = trans {
-                self?.output?.didLoad(trans)
+                self?.output?.didLoad(trans, allLoaded: allLoaded)
             } else {
                 self?.output?.didReceive("Error loading data")
             }
@@ -75,7 +75,5 @@ final class MainInteractor: MainInteractorInput {
             }
         })
     }
-    
-    
     
 }

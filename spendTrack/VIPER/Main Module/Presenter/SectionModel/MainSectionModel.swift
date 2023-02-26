@@ -9,8 +9,10 @@ import Foundation
 
 final class MainSectionModel: SectionRowsRepresentable {
     var rows: [CellIdentifiable]
+    var allLoaded: Bool
     
-    init(_ trans: [Transaction]) {
+    init(_ trans: [Transaction], allLoaded: Bool) {
+        self.allLoaded = allLoaded
         rows = [CellIdentifiable]()
         trans.forEach({ rows.append(MainBaseTransCellModel($0)) })
     }

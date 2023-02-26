@@ -18,10 +18,23 @@ final class NewSpendPresenter: NewSpendPresenterInput, NewSpendViewOutput, NewSp
     var router: NewSpendRouterInput?
     
     func viewDidLoad() {
-        <#code#>
+        interactor?.configureCategories()
+    }
+    
+    func didConfigureCategories(_ categories: [String]) {
+        let section = NewSpendSectionModel(categories)
+        view?.updateForSection(section)
     }
     
     func saveTrans(amount: Int, category: String, date: Date) {
-        router?.saveTrans(amount: amount, category: category, date: date)
+        interactor?.saveTrans(amount: amount, category: category, date: date)
+    }
+    
+    func didSaveTrans() {
+        view?.dismissVC()
+    }
+    
+    func didReceive(_ error: String) {
+        view?.showError(error)
     }
 }

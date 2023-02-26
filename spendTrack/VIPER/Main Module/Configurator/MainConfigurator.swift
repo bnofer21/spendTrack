@@ -19,17 +19,18 @@ final class MainConfigurator {
     private func configure(viewController: MainViewController) {
         
         let router = MainRouter()
-        
+        let interactor = MainInteractor()
         let presenter = MainPresenter()
+        
         presenter.view = viewController
         presenter.router = router
         
-        let interactor = MainInteractor()
         interactor.output = presenter
         interactor.priceLoader = PriceLoader()
         interactor.dataManager = DataManager()
         
         presenter.interactor = interactor
+        
         viewController.output = presenter
     }
 }

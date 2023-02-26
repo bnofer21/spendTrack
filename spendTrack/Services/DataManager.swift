@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 
 protocol DataManagerInterface {
-    func loadTrans(startIndex: Int, completion: @escaping ([Transaction]?, String?) -> Void)
+    func loadTrans(startIndex: Int, completion: @escaping ([Transaction]?, String?, Bool) -> Void)
     func loadBalance(completion: @escaping (Balance?, String?) -> Void)
     func saveTrans(amount: Int, category: String, date: Date, completion: @escaping (String?) -> Void)
 }
@@ -19,22 +19,22 @@ final class DataManager: DataManagerInterface {
     
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
-    func loadTrans(startIndex: Int, completion: @escaping ([Transaction]?, String?) -> Void) {
+    func loadTrans(startIndex: Int, completion: @escaping ([Transaction]?, String?, Bool) -> Void) {
         let context = appDelegate.persistentContainer.viewContext
         var result = [Transaction]()
         let fetchRequest: NSFetchRequest<Transaction> = Transaction.fetchRequest()
         do {
             result = try context.fetch(fetchRequest)
         } catch let error as NSError {
-            completion(nil, error.localizedDescription)
+            completion(nil, error.localizedDescription, false)
         }
         result = result.sorted(by: { $0.date! > $1.date! })
-        if startIndex < result.count-20 {
-            result = Array(result[startIndex...startIndex+20])
+        if startIndex < result.count-15 {
+            result = Array(result.prefix(startIndex+15))
+            completion(result, nil, false)
         } else {
-            result = Array(result[startIndex..<result.count])
+            completion(result, nil, true)
         }
-        completion(result, nil)
     }
     
     func loadBalance(completion: @escaping (Balance?, String?) -> Void) {
@@ -48,7 +48,6 @@ final class DataManager: DataManagerInterface {
                         completion(nil, error)
                     }
                     completion(balance, nil)
-                    print("created new balance")
                 }
                 return
             }

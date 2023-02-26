@@ -10,14 +10,15 @@ import UIKit
 final class RootWireframe {
     
     class func setupWith(_ window: UIWindow) {
-        let vc = MainViewController()
-        let conf = MainConfigurator()
-        conf.configureModuleForViewInput(viewInput: vc)
+        let coordinator = MainCoordinator()
+        let navVC = UINavigationController()
         
-        let navVC = UINavigationController(rootViewController: vc)
+        coordinator.navigationController = navVC
         
         window.rootViewController = navVC
         window.overrideUserInterfaceStyle = .light
         window.makeKeyAndVisible()
+        
+        coordinator.start()
     }
 }
