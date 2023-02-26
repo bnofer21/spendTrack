@@ -8,21 +8,17 @@
 import Foundation
 
 protocol MainRouterInput {
-    func showSpendVC()
+    func saveTrans(amount: Int, category: String, date: Date)
 }
 
-class MainRouter: MainRouterInput, NewSpendRouterOutput {
+class MainRouter: MainRouterInput {
     
     weak var presenter: MainPresenterInput?
     
     var newSpendRouter: NewSpendRouterInput?
     
-    func moveDataToMainVc(amount: Int, category: String, date: Date) {
+    func saveTrans(amount: Int, category: String, date: Date) {
         presenter?.saveTrans(amount: amount, category: category, date: date)
-    }
-    
-    func showSpendVC() {
-//        let vc = NewSpendController(balance: <#T##Balance#>)
     }
     
 }
